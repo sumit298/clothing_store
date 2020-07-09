@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MenuItem from "../Menu-Item/menu-item.component";
-import './directory.style.scss';
+import "./directory.style.scss";
 
 const DirectoryHook = () => {
   const [items, showItems] = useState({
@@ -41,14 +41,19 @@ const DirectoryHook = () => {
   });
   return (
     <div className="directory-menu">
-      {items.sections.map(({ id, imageUrl, title, size }) => {
+      {items.sections.map(({ id, imageUrl, title, size, linkUrl }) => {
         return (
-          <MenuItem key={id} imageUrl={imageUrl} size={size} title={title} />
+          <MenuItem
+            key={id}
+            imageUrl={imageUrl}
+            size={size}
+            title={title}
+            linkUrl={linkUrl}
+          />
         );
       })}
     </div>
   );
 };
-
 
 export default DirectoryHook;
