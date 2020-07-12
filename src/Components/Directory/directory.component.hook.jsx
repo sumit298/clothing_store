@@ -3,6 +3,7 @@ import MenuItem from "../Menu-Item/menu-item.component";
 import "./directory.style.scss";
 
 const DirectoryHook = () => {
+  // eslint-disable-next-line
   const [items, showItems] = useState({
     sections: [
       {
