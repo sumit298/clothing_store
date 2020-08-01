@@ -5,7 +5,7 @@ const SignPage = () => {
   return <div>
 
       <SignIn/>
-  </div>;
+  </div>
 };
 
 export default SignPage;

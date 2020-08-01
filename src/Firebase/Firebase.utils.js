@@ -27,3 +27,25 @@ provider.setCustomParameters({
 
 export const signInWithGoogle = ()=> auth.signInWithPopup(provider);
 
+export const createUserProfileDocument =  async(userAuth, additionalData)=>{
+    if(!userAuth) return null;
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+    const snapShot = await userRef.get();
+    console.log(userRef);
+    if(!snapShot.exists){
+        const {displayName, email} = userAuth;
+        const createdAt = new Date();
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            })
+        } catch (error) {
+            console.error("Error Creating User", error);
+        }
+    }
+
+    return userRef;
+};

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./signin.styles.scss";
 import FormInput from "../Form-Input/form-input.component";
 import CustomButton from "../Custom-Button/custom-button.component";
-import { signInWithGoogle } from "../../Firebase/Firebase.utils";
+import { auth, signInWithGoogle } from "../../Firebase/Firebase.utils";
 
 const SignIn = () => {
   const [form, setForm] = useState({
@@ -12,13 +12,17 @@ const SignIn = () => {
 
   const handleClick = (event) => {
     event.preventDefault();
-    setForm({ email: "", password: "" });
   };
 
   const handleChange = (event) => {
+    event.persist();
     const { name, value } = event.target;
-    setForm({ [name]: value });
+    setForm((prevValue) => {
+      //  Magical Idea for me.
+      return { ...form, [name]: value };
+    });
   };
+  const { email, password } = form;
   return (
     <div className="sign-in">
       <h1 className="title">I have already an account</h1>
@@ -26,26 +30,25 @@ const SignIn = () => {
       <form onSubmit={handleClick}>
         <FormInput
           type="email"
-          handleChange={handleChange}
           name="email"
           label="Email"
+          handleChange={handleChange}
           required
-          value={form.email}
+          value={email}
         />
         <FormInput
-          type="password"
           handleChange={handleChange}
+          type="password"
           name="password"
-          required
           label="Password"
-          value={form.password}
+          required
+          value={password}
         />
         <div className="buttons">
           <CustomButton type="submit">Sign In</CustomButton>
           <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
             Sign in with Google
           </CustomButton>
-          
         </div>
       </form>
     </div>
