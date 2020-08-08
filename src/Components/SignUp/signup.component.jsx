@@ -36,9 +36,13 @@ const SignUp = () => {
       console.error(error);
     }
   };
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setState({ ...state,[name]: value });
+  const handleChange = (event) => {
+    event.persist();
+    const { name, value } = event.target;
+    setState((prevValue) => {
+      //  Magical Idea for me.
+      return { ...state, [name]: value };
+    });
   };
   const { displayName, email, password, confirmPassword } = state;
   return (
@@ -59,6 +63,7 @@ const SignUp = () => {
             type="email"
             label="Email"
             value={email}
+            name="email"
             handleChange={handleChange}
             required
           />
@@ -66,12 +71,14 @@ const SignUp = () => {
             type="password"
             label="Password"
             value={password}
+            name="password"
             handleChange={handleChange}
             required
           />
           <FormInput
             type="password"
             label="Confirm Password"
+            name="confirmPassword"
             value={confirmPassword}
             handleChange={handleChange}
             required
