@@ -11,24 +11,30 @@ function App() {
 
   useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+      // Checking If userAuth returned from auth is not null
       if (userAuth) {
+        // createUserProfileDocument function return userRef
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapShot) => {
+        // onSnapshot method returns actual data that saved in firestore
+        userRef.onSnapshot((snapshot) => {
+          // Setting state
           setUsers({
             currentUser: {
-              id: snapShot.id,
-              ...snapShot.data(),
+              id: snapshot.id,
+              // Getting all data stored in firestore by calling data();
+              ...snapshot.data(),
             },
           });
         });
       } else {
+        // If user is logged out so setting its state to null
         setUsers({ currentUser: userAuth });
       }
-      // console.log(users.currentUser);
     });
-    // Mimic componentWillUnmount Method
-    // Cleanup function
+
     return () => {
+      // Mimic componentWillUnmount Method
+      //   // Cleanup function
       unsubscribeFromAuth();
     };
   }, []);

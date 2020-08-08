@@ -10,8 +10,18 @@ const SignIn = () => {
     password: "",
   });
 
-  const handleClick = (event) => {
+  const handleClick = async(event) => {
     event.preventDefault();
+    const {email, password} = form;
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      setForm({
+        email:'',
+        password: ''
+      })
+    } catch (error) {
+      console.error("Error occurred",error)
+    }
   };
 
   const handleChange = (event) => {
