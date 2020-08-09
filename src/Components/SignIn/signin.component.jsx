@@ -10,27 +10,26 @@ const SignIn = () => {
     password: "",
   });
 
-  const handleClick = async(event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
-    const {email, password} = form;
+    const { email, password } = form;
     try {
-      await auth.createUserWithEmailAndPassword(email, password);
+      await auth.signInWithEmailAndPassword(email, password);
       setForm({
-        email:'',
-        password: ''
-      })
+        email: "",
+        password: "",
+      });
     } catch (error) {
-      console.error("Error occurred",error)
+      console.error("Error occurred", error);
     }
   };
 
   const handleChange = (event) => {
-    event.persist();
     const { name, value } = event.target;
-    setForm((prevValue) => {
+    setForm(
       //  Magical Idea for me.
-      return { ...form, [name]: value };
-    });
+      { ...form, [name]: value }
+    );
   };
   const { email, password } = form;
   return (

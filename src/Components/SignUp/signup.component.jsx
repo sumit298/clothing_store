@@ -37,12 +37,12 @@ const SignUp = () => {
     }
   };
   const handleChange = (event) => {
-    event.persist();
+    
     const { name, value } = event.target;
-    setState((prevValue) => {
-      //  Magical Idea for me.
-      return { ...state, [name]: value };
-    });
+    setState(
+      //  Magical Idea for me. For Hooks.
+      { ...state, [name]: value }
+    );
   };
   const { displayName, email, password, confirmPassword } = state;
   return (
